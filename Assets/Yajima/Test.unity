@@ -574,7 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160604172cdead647a6cd53c4fa5e70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeText: {fileID: 1375167035}
+  _timeText: {fileID: 0}
   _scoreText: {fileID: 1690850894}
   _distanceText: {fileID: 1291621433}
   _enemyCountText: {fileID: 9735110}
