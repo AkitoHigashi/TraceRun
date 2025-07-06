@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class RunDistance : MonoBehaviour
 {
-    [Header("Player"), SerializeField]
-    Transform _player;
-
-    Vector3 _startPos;
-    Vector3 _nowPos;
+    [Header("Meter/deltaTime"), Tooltip("１フレームで進む距離")]
+    [SerializeField]
+    float _meterPerSeconds;
     float _distance;
+    float _elapsedTime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _startPos = _player.transform.position;
+        _distance = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _nowPos = _player.transform.position - _startPos;
-        _distance = _nowPos.magnitude;
+        _elapsedTime += Time.deltaTime;//経過時間を計測
+        _distance = _meterPerSeconds * _elapsedTime;//１フレームで進む距離×経過時間＝進んだ距離
         Debug.Log(_distance);
     }
 }
