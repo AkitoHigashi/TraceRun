@@ -47,16 +47,44 @@ public class GameDirctor : MonoBehaviour
         _distance = _meterPerFrame * _elapsedTime;
 
         //時間テキスト
-        _timeText.text = _elapsedTime.ToString("0.00");
+        if (_timeText != null)
+        {
+            _timeText.text = _elapsedTime.ToString("0.00");
+        }
+        else
+        {
+            Debug.LogWarning("時間を表示するためのテキストがありません");
+        }
 
         //スコアテキスト
-        _scoreText.text = _score.ToString("00000");
+        if (_scoreText != null)
+        {
+            _scoreText.text = _score.ToString("00000");
+        }
+        else
+        {
+            Debug.LogWarning("スコアを表示するためのテキストがありません");
+        }
 
         //距離テキスト
-        _distanceText.text = _distance.ToString("0000.0")+"m";
+        if (_distanceText != null)
+        {
+            _distanceText.text = _distance.ToString("0000.0") + "m";
+        }
+        else
+        {
+            Debug.LogWarning("距離を表示するためのテキストがありません");
+        }
 
         //敵カウントテキスト
-        _enemyCountText.text = _enemyCount.ToString("000");
+        if (_enemyCountText != null)
+        {
+            _enemyCountText.text = _enemyCount.ToString("000");
+        }
+        else
+        {
+            Debug.LogWarning("倒した敵の数を表示するためのテキストがありません");
+        }
     }
 
     /// <summary>
