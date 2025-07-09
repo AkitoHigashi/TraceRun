@@ -20,14 +20,14 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.tag == "Bullet")
+        if (other.gameObject.tag == "Bullet")
         {
             //‰¼
             BulletDamage bullet = other.GetComponent<BulletDamage>();
             TakeDamage(bullet.damage);
             Destroy(other.gameObject);
         }
-        if (gameObject.tag == "DeathFloor")
+        if (other.gameObject.tag == "DeathFloor")
         {
             this.gameObject.SetActive(false);
         }
