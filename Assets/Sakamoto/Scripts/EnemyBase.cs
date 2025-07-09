@@ -18,6 +18,34 @@ public abstract class EnemyBase : MonoBehaviour
     }
     public abstract void Attack();
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (gameObject.tag == "Bullet")
+        {
+            //‰¼
+            BulletDamage bullet = other.GetComponent<BulletDamage>();
+            TakeDamage(bullet.damage);
+            Destroy(other.gameObject);
+        }
+        if (gameObject.tag == "DeathFloor")
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _health-=damage;
+        if (_health <= 0)
+        {
+            Die();
+        }
+    }
+    protected virtual void Die()
+    {
+        Destroy(gameObject);
+    }
+
     public enum enemyState
     {
         Idle,
