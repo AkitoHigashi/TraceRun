@@ -1,29 +1,42 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyFactoryManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemy1Prefab;
-    [SerializeField] private GameObject _enemy2Prefab;
-    [SerializeField] private GameObject _enemy3Prefab;
+    [SerializeField] private EnemyDatabase database;
 
-    private Dictionary<string, IEnemyFactory> factories = new Dictionary<string, IEnemyFactory>();
+    private Dictionary<string, EnemyData> enemyDict = new Dictionary<string, EnemyData>();
     private void Awake()
     {
-        factories["enemy1"] = new Enemy1Facoty(_enemy1Prefab);
-        factories["enemy2"] = new Enemy2Facoty(_enemy2Prefab);
-        factories["enemy3"] = new Enemy3Facoty(_enemy3Prefab);
+        foreach (var data in database.enemyList)
+        {
+            if (!enemyDict.ContainsKey(data.TypeName))
+            {
+                enemyDict[data.TypeName] = data;
+            }
+        }
 
     }
 
-    public EnemyBase CreateEnemy(string type, Vector3 spawnPos)
+    public EnemyBase CreateEnemy(string type, Vector3 position)
     {
-        if (factories.TryGetValue(type, out var factory))
+        if (enemyDict.TryGetValue(type, out var data))
         {
-            return factory.CreateEnemy(spawnPos);
+            GameObject enemyGO = Instantiate(data.Prefab, position, data.Prefab.transform.rotation);
+            EnemyBase enemy = enemyGO.GetComponent<EnemyBase>();
+            if (enemy != null)
+            {
+                enemy.Setup(data);
+            }
+            return enemy;
         }
 
-        Debug.LogError($"Factory for type {type} not foun!");
+        Debug.LogError($"“Gƒ^ƒCƒv '{type}' ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
         return null;
+    }
+    public List<string> GetAvailableTypes()
+    {
+        return new List<string>(enemyDict.Keys);
     }
 }

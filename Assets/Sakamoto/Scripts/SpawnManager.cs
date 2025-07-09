@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -24,10 +25,11 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnRandomEnemy()
     {
-        string[] types = { "enemy1", "enemy2", "enemy3" };
-        string chosenType = types[Random.Range(0, types.Length)];
+        List<string> types = factoryManager.GetAvailableTypes();
+        if (types.Count == 0) return;
 
-        // 最小位置と最大位置の間でランダムに選択
+        string chosenType = types[Random.Range(0, types.Count)];
+
         Vector3 spawnPosition = new Vector3(
             Random.Range(minSpawnPosition.x, maxSpawnPosition.x),
             Random.Range(minSpawnPosition.y, maxSpawnPosition.y),
