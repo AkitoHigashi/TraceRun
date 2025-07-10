@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32b5169612c07314c9c17661615e643f, type: 3}
-  m_Name: EnemyDatabase
+  m_Script: {fileID: 11500000, guid: 373119a9ddee97d4e97954509e2b8682, type: 3}
+  m_Name: Golem
   m_EditorClassIdentifier: 
-  enemyList:
-  - {fileID: 11400000, guid: 2fe6e40bb665b454598dad3053cbd1e0, type: 2}
-  - {fileID: 11400000, guid: 8727b53ff14de2d438a5845aa600d966, type: 2}
+  TypeName: Golem
+  Prefab: {fileID: 433026873426657549, guid: cdd1f53da44f349469e88d47aac5fe60, type: 3}
+  MoveSpeed: 5
+  Health: 100
+  AttackDamage: 20
+  AttackCoolTime: 3

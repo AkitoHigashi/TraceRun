@@ -43,7 +43,7 @@ public abstract class EnemyBase : MonoBehaviour
     }
     protected virtual void Die()
     {
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 
     public enum enemyState
