@@ -1,46 +1,58 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameDirctor : MonoBehaviour
 {
-    [Header("Time Text"), Tooltip("ŠÔ‚ğ•\¦‚·‚éƒeƒLƒXƒgƒIƒuƒWƒFƒNƒg")]
+    [Header("PowerUpData(ScriptableObject)")]
+    [SerializeField]
+    PowerUpData _powerUpData;
+
+    [Header("Time Text"), Tooltip("æ™‚é–“ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField]
     Text _timeText;
 
-    [Header("Score Text"), Tooltip("ƒXƒRƒA‚ğ•\¦‚·‚éƒeƒLƒXƒgƒIƒuƒWƒFƒNƒg")]
+    [Header("Score Text"), Tooltip("ã‚¹ã‚³ã‚¢ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField]
     Text _scoreText;
 
-    [Header("Distance Text"), Tooltip("‘–‚Á‚½‹——£‚ğ•\¦‚·‚éƒeƒLƒXƒgƒIƒuƒWƒFƒNƒg")]
+    [Header("Distance Text"), Tooltip("èµ°ã£ãŸè·é›¢ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField]
     Text _distanceText;
 
-    [Header("Enemy_Count Text"), Tooltip("“|‚µ‚½“G‚Ì”‚ğ•\¦‚·‚éƒeƒLƒXƒgƒIƒuƒWƒFƒNƒg")]
+    [Header("Enemy_Count Text"), Tooltip("å€’ã—ãŸæ•µã®æ•°ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField]
     Text _enemyCountText;
 
-    [Header("Meter/deltaTime"), Tooltip("‚PƒtƒŒ[ƒ€‚Åi‚Ş‹——£")]
+    [Header("Result"), Tooltip("ã‚¯ãƒªã‚¢æ™‚ã«è¡¨ç¤ºã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®š")]
+    [SerializeField]
+    GameObject _result;
+
+    [Header("PowerUpGroup"), Tooltip("ãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—æ™‚ã«è¡¨ç¤ºã™ã‚‹ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‚’è¨­å®š")]
+    [SerializeField]
+    GameObject _powerUpGroup;
+
+    [Header("Meter/deltaTime"), Tooltip("ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã§é€²ã‚€è·é›¢")]
     [SerializeField]
     float _meterPerFrame;
 
-    [Header("Distance Until BossBattle"), Tooltip("ƒ{ƒX‚ª‚¢‚é’n“_")]
+    [Header("Distance Until BossBattle"), Tooltip("ãƒœã‚¹ãŒã„ã‚‹åœ°ç‚¹")]
     [SerializeField]
     List<float> _meters;
 
-    [Header("PowerUp Score"), Tooltip("‹­‰»—v‘f‚ğ•\¦‚·‚éƒXƒRƒA‚ÌğŒiŸ‚Ì‹­‰»‚Ü‚Å‚Ì•j")]
+    [Header("PowerUp Score"), Tooltip("å¼·åŒ–è¦ç´ ã‚’è¡¨ç¤ºã™ã‚‹ã‚¹ã‚³ã‚¢ã®æ¡ä»¶ï¼ˆæ¬¡ã®å¼·åŒ–ã¾ã§ã®å¹…ï¼‰")]
     [SerializeField]
     List<int> _powerUpScore;
 
     /// <summary>
-    /// Šî–{‚Íƒ{ƒ^ƒ“‚Í‚R‚Âİ’è‚·‚é‚¯‚Ç¡Œã‘‚â‚·‰Â”\«‚à‚ ‚é
+    /// åŸºæœ¬ã¯ãƒœã‚¿ãƒ³ã¯ï¼“ã¤è¨­å®šã™ã‚‹ã‘ã©ä»Šå¾Œå¢—ã‚„ã™å¯èƒ½æ€§ã‚‚ã‚ã‚‹
     /// </summary>
-    [Header("Button"), Tooltip("ƒpƒ[ƒAƒbƒv‚É•\¦‚·‚éƒ{ƒ^ƒ“‚ğİ’è")]
+    [Header("Button"), Tooltip("ãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—æ™‚ã«è¡¨ç¤ºã™ã‚‹ãƒœã‚¿ãƒ³ã‚’è¨­å®š")]
     [SerializeField]
     List<GameObject> _button;
 
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ÌƒCƒ[ƒW‚ÌƒŠƒXƒg‚É‘Î‰‚·‚éƒCƒ“ƒfƒbƒNƒX‚ÌƒŠƒXƒg
+    /// ãƒœã‚¿ãƒ³ã®ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒªã‚¹ãƒˆã«å¯¾å¿œã™ã‚‹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ãƒªã‚¹ãƒˆ
     /// </summary>
     List<int> _powerUpIndex;
 
@@ -49,10 +61,6 @@ public class GameDirctor : MonoBehaviour
     float _distance;
     int _enemyCount;
     int _previousScore;
-    
-    [Header("PowerUpNumber"), Tooltip("ƒpƒ[ƒAƒbƒv‚Ìí—Ş”‚ğ“ü—Í")]
-    [SerializeField]
-    int _powerUpNum;
 
     [Header("UICheckParameters")]
     [SerializeField]
@@ -67,7 +75,7 @@ public class GameDirctor : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //‰Šú‰»
+        //åˆæœŸåŒ–
         _distance = 0.0f;
         _elapsedTime = 0.0f;
         _TimeForDistance = 0.0f;
@@ -79,7 +87,7 @@ public class GameDirctor : MonoBehaviour
         _powerUpCondition = false;
         if (_meters == null || _meters.Count == 0)
         {
-            Debug.LogWarning("“’B‹——£‚ÌƒŠƒXƒg‚ª‹ó‚Å‚·");
+            Debug.LogWarning("åˆ°é”è·é›¢ã®ãƒªã‚¹ãƒˆãŒç©ºã§ã™");
         }
         else
         {
@@ -88,7 +96,7 @@ public class GameDirctor : MonoBehaviour
 
         if (_powerUpScore == null || _powerUpScore.Count == 0)
         {
-            Debug.LogWarning("ƒpƒ[ƒAƒbƒvƒXƒRƒA‚ÌƒŠƒXƒg‚ª‹ó‚Å‚·");
+            Debug.LogWarning("ãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—ã‚¹ã‚³ã‚¢ã®ãƒªã‚¹ãƒˆãŒç©ºã§ã™");
         }
         else
         {
@@ -97,97 +105,120 @@ public class GameDirctor : MonoBehaviour
 
         if (_button == null || _button.Count == 0)
         {
-            Debug.LogWarning("ƒ{ƒ^ƒ“‚ÌƒŠƒXƒg‚ª‹ó‚Å‚·");
+            Debug.LogWarning("ãƒœã‚¿ãƒ³ã®ãƒªã‚¹ãƒˆãŒç©ºã§ã™");
+        }
+
+        if (!_timeText || !_distanceText || !_enemyCountText || !_scoreText)
+        {
+            Debug.LogWarning("ã„ãšã‚Œã‹ã®ãƒ†ã‚­ã‚¹ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
+        }
+
+        if (_result == null)
+        {
+            Debug.LogWarning("ãƒªã‚¶ãƒ«ãƒˆã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
+        }
+        else
+        {
+            _result.SetActive(false);
+        }
+
+        if (_powerUpGroup == null)
+        {
+            Debug.LogWarning("ãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—æ™‚ã«è¡¨ç¤ºã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
+        }
+        else
+        {
+            _powerUpGroup.SetActive(false);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_clear)//ƒNƒŠƒA‚µ‚Ä‚¢‚È‚¢‚È‚ç
+        if (!_clear)//ã‚¯ãƒªã‚¢ã—ã¦ã„ãªã„ãªã‚‰
         {
-            if (!_powerUpCondition)//g‚í‚È‚¢ê‡Á‚·
+            if (!_powerUpCondition)//ä½¿ã‚ãªã„å ´åˆæ¶ˆã™
             {
-                //Œo‰ßŠÔ‚ğŒv‘ª
+                //çµŒéæ™‚é–“ã‚’è¨ˆæ¸¬
                 _elapsedTime += Time.deltaTime;
 
-                //‚PƒtƒŒ[ƒ€‚Åi‚Ş‹——£~Œo‰ßŠÔi‚ñ‚¾‹——£
+                //ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã§é€²ã‚€è·é›¢Ã—çµŒéæ™‚é–“ï¼é€²ã‚“ã è·é›¢
                 if (!_isInBossBattle)
                 {
                     _TimeForDistance += Time.deltaTime;
                     _distance = _meterPerFrame * _TimeForDistance;
-                    //‹——£ƒeƒLƒXƒg
+                    //è·é›¢ãƒ†ã‚­ã‚¹ãƒˆ
                     if (_distanceText != null)
                     {
                         _distanceText.text = _distance.ToString("0000.0") + "m";
                     }
                     else
                     {
-                        Debug.LogWarning("‹——£‚ğ•\¦‚·‚é‚½‚ß‚ÌƒeƒLƒXƒg‚ª‚ ‚è‚Ü‚¹‚ñ");
+                        Debug.LogWarning("è·é›¢ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ãƒ†ã‚­ã‚¹ãƒˆãŒã‚ã‚Šã¾ã›ã‚“");
                     }
                 }
 
-                //ŠÔƒeƒLƒXƒg
+                //æ™‚é–“ãƒ†ã‚­ã‚¹ãƒˆ
                 if (_timeText != null)
                 {
                     _timeText.text = _elapsedTime.ToString("0.00");
                 }
                 else
                 {
-                    Debug.LogWarning("ŠÔ‚ğ•\¦‚·‚é‚½‚ß‚ÌƒeƒLƒXƒg‚ª‚ ‚è‚Ü‚¹‚ñ");
+                    Debug.LogWarning("æ™‚é–“ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ãƒ†ã‚­ã‚¹ãƒˆãŒã‚ã‚Šã¾ã›ã‚“");
                 }
 
-                //ƒXƒRƒAƒeƒLƒXƒg
+                //ã‚¹ã‚³ã‚¢ãƒ†ã‚­ã‚¹ãƒˆ
                 if (_scoreText != null)
                 {
                     _scoreText.text = _nowScore.ToString("00000");
                 }
                 else
                 {
-                    Debug.LogWarning("ƒXƒRƒA‚ğ•\¦‚·‚é‚½‚ß‚ÌƒeƒLƒXƒg‚ª‚ ‚è‚Ü‚¹‚ñ");
+                    Debug.LogWarning("ã‚¹ã‚³ã‚¢ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ãƒ†ã‚­ã‚¹ãƒˆãŒã‚ã‚Šã¾ã›ã‚“");
                 }
 
-                //“GƒJƒEƒ“ƒgƒeƒLƒXƒg
+                //æ•µã‚«ã‚¦ãƒ³ãƒˆãƒ†ã‚­ã‚¹ãƒˆ
                 if (_enemyCountText != null)
                 {
                     _enemyCountText.text = _enemyCount.ToString("000");
                 }
                 else
                 {
-                    Debug.LogWarning("“|‚µ‚½“G‚Ì”‚ğ•\¦‚·‚é‚½‚ß‚ÌƒeƒLƒXƒg‚ª‚ ‚è‚Ü‚¹‚ñ");
+                    Debug.LogWarning("å€’ã—ãŸæ•µã®æ•°ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ãƒ†ã‚­ã‚¹ãƒˆãŒã‚ã‚Šã¾ã›ã‚“");
                 }
             }
         }
         else
-        {
-
+        {//ã‚¯ãƒªã‚¢æ™‚ã®å‡¦ç†
+            if (_result == null)
+            {
+                Debug.LogWarning("ãƒªã‚¶ãƒ«ãƒˆã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
+            }
+            else
+            {
+                _result.SetActive(true);
+            }
         }
 
-        if (_distance >= _meters[0])//ˆê’è‹——£‚É’B‚µ‚½‚ç
+        if (_distance >= _meters[0])//ä¸€å®šè·é›¢ã«é”ã—ãŸã‚‰
         {
             _isInBossBattle = true;
-            if (_meters.Count > 1)//ƒ{ƒXí“Ë“ü‚Ì‹——£‚ªXV‚³‚ê‚é
+            if (_meters.Count > 1)//ãƒœã‚¹æˆ¦çªå…¥ã®è·é›¢ãŒæ›´æ–°ã•ã‚Œã‚‹
             {
                 _meters.RemoveAt(0);
             }
         }
 
-        if (_nowScore - _previousScore >= _powerUpScore[0])//ˆê’èƒXƒRƒA‚É’B‚µ‚½‚ç
+        if (_nowScore - _previousScore >= _powerUpScore[0])//ä¸€å®šã‚¹ã‚³ã‚¢ã«é”ã—ãŸã‚‰
         {
-            _previousScore = _nowScore;
-            ButtonActive();
-            Time.timeScale = 0;
-            //_powerUpCondition = true;
-            if (_powerUpScore.Count > 1)//ƒXƒRƒA‚Ì’B¬ğŒ‚ªXV‚³‚ê‚é
-            {
-                _powerUpScore.RemoveAt(0);
-            }
+            PowerUpSelect();
         }
     }
 
     /// <summary>
-    /// “G‚ğ“|‚µ”‚ğƒJƒEƒ“ƒg‚·‚éŠÖ”
-    /// “G‚ÌƒIƒuƒWƒFƒNƒg“à‚ÅŒÄ‚Ño‚·
+    /// æ•µã‚’å€’ã—æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹é–¢æ•°
+    /// æ•µã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå†…ã§å‘¼ã³å‡ºã™
     /// </summary>
     public void EnemyDead()
     {
@@ -195,38 +226,40 @@ public class GameDirctor : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒRƒA‚ğ‰ÁZ‚·‚éŠÖ”
-    /// “G‚ÌƒIƒuƒWƒFƒNƒg“à‚ÅŒÄ‚Ño‚·
+    /// ã‚¹ã‚³ã‚¢ã‚’åŠ ç®—ã™ã‚‹é–¢æ•°
+    /// æ•µã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå†…ã§å‘¼ã³å‡ºã™
     /// </summary>
-    /// <param name="score"> “|‚µ‚½“G‚É‰‚¶‚½ƒXƒRƒA</param>
+    /// <param name="score"> å€’ã—ãŸæ•µã«å¿œã˜ãŸã‚¹ã‚³ã‚¢</param>
     public void AddScore(int score)
     {
         _nowScore += score;
     }
 
     /// <summary>
-    /// ƒ{ƒXí‚ğo‚½‚ÉŒÄ‚Ño‚·ŠÖ”
+    /// ãƒœã‚¹æˆ¦ã‚’å‡ºãŸæ™‚ã«å‘¼ã³å‡ºã™é–¢æ•°
     /// </summary>
     public void OutBossBattle()
     {
+        PowerUpSelect();
         _isInBossBattle = false;
     }
 
     /// <summary>
-    /// ƒQ[ƒ€‚ğÄŠJ‚·‚é‚½‚ß‚ÌŠÖ”
+    /// ã‚²ãƒ¼ãƒ ã‚’å†é–‹ã™ã‚‹ãŸã‚ã®é–¢æ•°
+    /// ãƒœã‚¿ãƒ³ã§å‘¼ã³å‡ºã™
     /// </summary>
     public void GameResume()
     {
         //_powerUpCondition = false;
         for (int i = 0; i < _button.Count; i++)
         {
-            _button[i].SetActive(false);
+            _powerUpGroup.SetActive(false);
         }
         Time.timeScale = 1;
     }
 
     /// <summary>
-    /// ƒNƒŠƒA”»’è‚ğ‚·‚éŠÖ”
+    /// ã‚¯ãƒªã‚¢åˆ¤å®šã‚’ã™ã‚‹é–¢æ•°
     /// </summary>
     public void Clear()
     {
@@ -234,30 +267,38 @@ public class GameDirctor : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ğƒAƒNƒeƒBƒu‚É‚µ‚Äƒpƒ[ƒAƒbƒv‚ğƒ‰ƒ“ƒ_ƒ€‚É‘I‚ÔŠÖ”
+    /// ãƒœã‚¿ãƒ³ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã—ã¦ãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«é¸ã¶é–¢æ•°
     /// </summary>
-    public void ButtonActive()
+    public void PowerUpSelect()
     {
-        //ƒŠƒXƒg‚ğ‰Šú‰»
+        _previousScore = _nowScore;
+        _powerUpGroup.SetActive(true);
+        Time.timeScale = 0;
+
+        //_powerUpCondition = true;
+        if (_powerUpScore.Count > 1)//ã‚¹ã‚³ã‚¢ã®é”æˆæ¡ä»¶ãŒæ›´æ–°ã•ã‚Œã‚‹
+        {
+            _powerUpScore.RemoveAt(0);
+        }
+
+        //ãƒªã‚¹ãƒˆã‚’åˆæœŸåŒ–
         _powerUpIndex = new List<int>();
-        for (int i = 0; i < _powerUpNum; i++)
+        for (int i = 0; i < _powerUpData._list.Count; i++)
         {
             _powerUpIndex.Add(i);
         }
 
-        //ƒ‰ƒ“ƒ_ƒ€‚ÉƒŠƒXƒg‚Ì—v‘f‚ğ‘I‚Ôiƒpƒ[ƒAƒbƒv—v‘f‚ğ‘I‚Ôj
+        //ãƒ©ãƒ³ãƒ€ãƒ ã«ãƒªã‚¹ãƒˆã®è¦ç´ ã‚’é¸ã¶ï¼ˆãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—è¦ç´ ã‚’é¸ã¶ï¼‰
         for (int i = 0; i < _button.Count; i++)
         {
-            //ƒ{ƒ^ƒ“‚ÉŠ„‚èU‚éƒpƒ[ƒAƒbƒv—v‘f‚ªƒ{ƒ^ƒ“‚Ì”‚æ‚è‚à‘½‚¢‚Æ‚«iƒpƒ[ƒAƒbƒv—v‘f‚ğ‘I‚×‚é‚Æ‚«j
-            if (_button.Count - i <= _powerUpIndex.Count)
+            //ãƒœã‚¿ãƒ³ã«å‰²ã‚ŠæŒ¯ã‚‹ãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—è¦ç´ ãŒãƒœã‚¿ãƒ³ã®æ•°ã‚ˆã‚Šã‚‚å¤šã„ã¨ãï¼ˆãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—è¦ç´ ã‚’é¸ã¹ã‚‹ã¨ãï¼‰
+            if ( _powerUpData._list.Count - i > 0)
             {
-                //—”¶¬
+                //ä¹±æ•°ç”Ÿæˆ
                 int rand = Random.Range(0, _powerUpIndex.Count);
-                //ƒ{ƒ^ƒ“‚ğƒAƒNƒeƒBƒu‚É
-                _button[i].SetActive(true);
-                //ƒ{ƒ^ƒ“‚É‘Î‚µ‚Ä”Ô†‚ğŠ„‚èU‚é
+                //ãƒœã‚¿ãƒ³ã«å¯¾ã—ã¦ç•ªå·ã‚’å‰²ã‚ŠæŒ¯ã‚‹
                 _button[i].GetComponent<PowerUp>().SetImage(_powerUpIndex[rand]);
-                //‘I‚Î‚ê‚½—v‘f‚ğíœ
+                //é¸ã°ã‚ŒãŸè¦ç´ ã‚’å‰Šé™¤
                 _powerUpIndex.RemoveAt(rand);
             }
         }

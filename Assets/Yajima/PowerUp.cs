@@ -1,23 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class PowerUp : MonoBehaviour
 {
-    [Header("Sprites"), Tooltip("ボタンのスプライトのリスト")]
-    [SerializeField]
-    List<Sprite> _sprite;
-
     [Header("Player"), Tooltip("プレイヤーのオブジェクトを設定")]
     [SerializeField]
     GameObject _player;
 
-    int _index;
+    [Header("ScriptableObjects"), Tooltip("パワーアップのデータを設定")]
+    [SerializeField]
+    PowerUpData _powerUpData;
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
+    int _index;
 
     /// <summary>
     /// ボタンのイメージを設定する関数
@@ -25,33 +19,23 @@ public class PowerUp : MonoBehaviour
     /// <param name="index"> リストのボタンのイメージを指定する変数</param>
     public void SetImage(int index)
     {
-        _index = index;
-        gameObject.GetComponent<Image>().sprite = _sprite[_index];
+        if (_powerUpData == null)
+        {
+            Debug.LogWarning("ScriptableObjectが登録されていません");
+        }
+        else
+        {
+            _index = index;
+            gameObject.GetComponent<Image>().sprite = _powerUpData._list[_index]._sprite;
+        }
     }
 
     /// <summary>
     /// プレイヤーのパワーアップをする関数
-    /// スプライトと呼び出す関数はインデックスを対応させること
+    /// ボタンで呼び出す
     /// </summary>
     public void PlayerPowerUp()
     {
-        switch (_index)
-        {
-            case 0:
-                //プレイヤーのパワーアップする関数をプレイヤーから呼び出す
-                _player.GetComponent<Player>().Hello();
-                break;
-            case 1:
-                _player.GetComponent<Player>().GoodBye();
-                break;
-            case 2:
-                _player.GetComponent<Player>().GoodMorning();
-                break;
-            case 3:
-                _player.GetComponent<Player>().GoodEvening();
-                break;
-            default:
-                break;
-        }
+        _player.GetComponent<PlayerStatus>().PowerUp(_powerUpData._list[_index]._name, _powerUpData._list[_index]._powerUpValue);
     }
 }
