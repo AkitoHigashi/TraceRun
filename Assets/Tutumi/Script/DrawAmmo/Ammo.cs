@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cysharp.Threading.Tasks;
-using System.Threading; // UniTaskを使用するための名前空間
+using System.Threading;
 
 public class Ammo : MonoBehaviour
 {
     [SerializeField,Header("線の色を設定してください")] private Color _lineColor = Color.red; // 線の色を設定
     private GameObject _rootObj;
-    [SerializeField,Header("球の移動速度を設定してください")]private float _ammoSpeed = 0.1f; // 弾の移動速度
+    [SerializeField, Header("球の移動速度を設定してください")] private float _ammoSpeed = 0.1f; // 弾の移動速度
     [SerializeField,Header("球が消える位置を設定してください")] private float _ammoMaxPos = 100f;//球の最大位置
     [SerializeField, Header("球の大きさを設定してください割り算なので数値を大きくするほど球が小さくなります")] private float _ammoSize = 50f; // レイキャスト対象のレイヤー
     private List<Vector2> _positions = new List<Vector2>();
@@ -44,7 +44,10 @@ public class Ammo : MonoBehaviour
     {
         position = position / _ammoSize; // スケールを適用
 
-        // 線形補間で点を追加
+        // ⭐ルートの座標を足してワールド座標に変換
+        Vector2 rootPosition2D = new Vector2(_rootObj.transform.position.x, _rootObj.transform.position.z);
+        position += rootPosition2D;
+
         if (_positions.Count > 0)
         {
             Vector2 lastPosition = _positions[_positions.Count - 1];
@@ -55,11 +58,9 @@ public class Ammo : MonoBehaviour
             _positions.Add(position);
         }
 
-        // Vector2をVector3に変換（x,zに使用、yは設定値）
-        Vector3 worldPosition = new Vector3(_rootObj.transform.position.x + _rootObj.transform.position.x, _rootPosition.y, _rootPosition.z = position.y);
-        // ラインレンダラーで線を描画
         UpdateLineRenderer();
     }
+
     // 補間された点を追加するメソッド
     private void InterpolatePoints(Vector2 from, Vector2 to)
     {
@@ -93,18 +94,17 @@ public class Ammo : MonoBehaviour
         if (_positions.Count > 1)
         {
             _lineRenderer.positionCount = _positions.Count;
-
             for (int i = 0; i < _positions.Count; i++)
             {
-                Vector3 worldPos = new Vector3(_positions[i].x, _rootPosition.y, _positions[i].y);
+                Vector3 worldPos = new Vector3(_positions[i].x, _rootObj.transform.position.y, _positions[i].y);
                 _lineRenderer.SetPosition(i, worldPos);
             }
         }
     }
+
     void Update()
     {
-        if (_isShooting) return;
-
+        UpdateLineRenderer(); // 毎フレームラインレンダラーを更新
     }
     public async UniTask Shoot()
     {
