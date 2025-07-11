@@ -1,17 +1,19 @@
 using System;
-using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DrawPanel : MonoBehaviour, IDragHandler, IEndDragHandler
 {
+    [SerializeField]Color _lineColor = Color.red; // 線の色を設定
     private RawImage _rawImage;
     Texture2D _texture;
-    Vector2 _trasform;
+    Vector2 _transform;
     public int lineWidth = 5; // 線の太さを調整するパラメータ
     private Vector2 _previousPosition;
     private bool _isDragging = false;
+    public Action ResetAction;
+    public Action<Vector2> DragAction;
 
     private void Start()
     {
@@ -27,10 +29,6 @@ public class DrawPanel : MonoBehaviour, IDragHandler, IEndDragHandler
         }
         _texture.SetPixels(pixels);
         _texture.Apply();
-    }
-    public Vector2 ManualUpdate()
-    {
-        return _trasform;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -51,14 +49,19 @@ public class DrawPanel : MonoBehaviour, IDragHandler, IEndDragHandler
         );
 
         // 中心を原点とした座標を_trasformに格納
-        _trasform = localPosition;
+        _transform = localPosition;
         if (_isDragging)
         {
-            DrawLine(_previousPosition, texturePosition);
+            DrawLine(_previousPosition, texturePosition, out bool isInRange);
+            if (isInRange)
+            {
+                DragAction?.Invoke(_transform);
+            }
+            
         }
         else
         {
-            DrawPoint(texturePosition);
+            DrawPoint(texturePosition, out bool isInRange);
             _isDragging = true;
         }
 
@@ -69,23 +72,24 @@ public class DrawPanel : MonoBehaviour, IDragHandler, IEndDragHandler
     /// <summary>
     /// 前のフレームの位置と現在の位置を結ぶ線を描画するメソッド
     /// </summary>
-    private void DrawLine(Vector2 from, Vector2 to)
+    private void DrawLine(Vector2 from, Vector2 to, out bool isInRange)
     {
+        isInRange = true;
         float distance = Vector2.Distance(from, to);
         int steps = Mathf.RoundToInt(distance);
-
         for (int i = 0; i <= steps; i++)
         {
             float t = i / (float)steps;
             Vector2 position = Vector2.Lerp(from, to, t);
-            DrawPoint(position);
+            DrawPoint(position, out isInRange);
         }
     }
     /// <summary>
     /// 点を描画するメソッド
     /// </summary>
-    private void DrawPoint(Vector2 position)
+    private void DrawPoint(Vector2 position, out bool isInRange)
     {
+        isInRange = true;
         int halfWidth = lineWidth / 2;
         for (int x = -halfWidth; x <= halfWidth; x++)
         {
@@ -95,7 +99,11 @@ public class DrawPanel : MonoBehaviour, IDragHandler, IEndDragHandler
                 int pixelY = (int)position.y + y;
                 if (pixelX >= 0 && pixelX < _texture.width && pixelY >= 0 && pixelY < _texture.height)
                 {
-                    _texture.SetPixel(pixelX, pixelY, Color.red);
+                    _texture.SetPixel(pixelX, pixelY, _lineColor);
+                }
+                else
+                {
+                    isInRange = false;
                 }
             }
         }
@@ -114,5 +122,6 @@ public class DrawPanel : MonoBehaviour, IDragHandler, IEndDragHandler
         }
         _texture.SetPixels(pixels);
         _texture.Apply();
+        ResetAction?.Invoke();
     }
 }
