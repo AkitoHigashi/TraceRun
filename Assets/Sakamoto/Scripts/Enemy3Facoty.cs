@@ -10,7 +10,7 @@ public class Enemy3Facoty : IEnemyFactory
     }
     public EnemyBase CreateEnemy(Vector3 spawnPosition)
     {
-        GameObject enemy = Object.Instantiate(_enemy3Prefab, spawnPosition, Quaternion.identity);
+        GameObject enemy = Object.Instantiate(_enemy3Prefab, spawnPosition, _enemy3Prefab.transform.rotation);
         return enemy.GetComponent<EnemyBase>();
     }
 }
