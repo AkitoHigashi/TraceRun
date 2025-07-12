@@ -12,4 +12,18 @@ public class Sectoin_Move : MonoBehaviour
         transform.position += Vector3.back * _moveSpeed * Time.deltaTime;
     }
 
+    /// <summary>
+    /// ”»’èŠî€‚ÌˆÊ’u
+    /// </summary>
+    [SerializeField] private Vector3 DesPosition = new Vector3(0, 0, -100);
+
+    void Update()
+    {
+        // ZÀ•W‚Å”äŠr
+        if (transform.position.z < DesPosition.z)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
