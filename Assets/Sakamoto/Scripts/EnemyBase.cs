@@ -5,12 +5,14 @@ public abstract class EnemyBase : MonoBehaviour
     protected float _speed;
     protected int _health;
     protected int _damage;
+    protected int _healInk;
 
     public virtual void Setup(EnemyData data)
     {
         _speed = data.MoveSpeed;
         _health = data.Health;
         _damage = data.AttackDamage;
+        _healInk = data.HealInk;
     }
     public virtual void MoveToBase()
     {
@@ -22,7 +24,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            //��
+            //��
             BulletDamage bullet = other.GetComponent<BulletDamage>();
             TakeDamage(bullet.damage);
             Destroy(other.gameObject);
@@ -35,7 +37,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        _health-=damage;
+        Debug.Log("Enemy took damage: " + damage);
+        _health -=damage;
         if (_health <= 0)
         {
             Die();
@@ -43,6 +46,7 @@ public abstract class EnemyBase : MonoBehaviour
     }
     protected virtual void Die()
     {
+        GameObject.FindAnyObjectByType<DrawLine>()?.InkHealthUpdate(_healInk); // インクを回復
         this.gameObject.SetActive(false);
     }
 
