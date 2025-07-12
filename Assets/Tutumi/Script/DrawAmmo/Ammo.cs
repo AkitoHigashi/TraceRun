@@ -7,20 +7,25 @@ using System.Threading;
 public class Ammo : MonoBehaviour
 {
     [SerializeField,Header("線の色を設定してください")] private Color _lineColor = Color.red; // 線の色を設定
+    [SerializeField, Header("敵に当たった時のダメージを設定してください")] private int _damage = 10;
     private GameObject _rootObj;
     [SerializeField, Header("球の移動速度を設定してください")] private float _ammoSpeed = 0.1f; // 弾の移動速度
     [SerializeField,Header("球が消える位置を設定してください")] private float _ammoMaxPos = 100f;//球の最大位置
     [SerializeField, Header("球の大きさを設定してください割り算なので数値を大きくするほど球が小さくなります")] private float _ammoSize = 50f; // レイキャスト対象のレイヤー
     private List<Vector2> _positions = new List<Vector2>();
+    private List<bool> _isHit = new List<bool>(); // 各点がヒットしたかどうかのリスト
     private LineRenderer _lineRenderer;
     private LayerMask _raycastLayerMask = -1; // レイキャスト対象のレイヤー
     private int _interpolationSteps = 5; // 補間のステップ数
     public float AmmoSize { get { return _ammoSize; } }// Ammoの大きさを取得するプロパティ
     bool _isShooting = false; // 発射中かどうかのフラグ
-    Vector3 _beforePosition;
+    Vector2 _beforePosition;
+
+    float _height;
 
     private void Start()
     {
+        _beforePosition = Vector2.zero; // 初期化
         // LineRendererコンポーネントを取得または追加
         _lineRenderer = GetComponent<LineRenderer>();
         if (_lineRenderer == null)
@@ -42,12 +47,10 @@ public class Ammo : MonoBehaviour
 
     public void DrawLine(Vector2 position)
     {
-        position = position / _ammoSize; // スケールを適用
-
-        // ⭐ルートの座標を足してワールド座標に変換
+        position = position / _ammoSize;
         Vector2 rootPosition2D = new Vector2(_rootObj.transform.position.x, _rootObj.transform.position.z);
+        _height = _rootObj.transform.position.y;
         position += rootPosition2D;
-
         if (_positions.Count > 0)
         {
             Vector2 lastPosition = _positions[_positions.Count - 1];
@@ -56,11 +59,20 @@ public class Ammo : MonoBehaviour
         else
         {
             _positions.Add(position);
+            _isHit.Add(false); // ヒット状態を初期化
         }
-
         UpdateLineRenderer();
     }
-
+    private void UpdateLinePosition()
+    {
+        Vector2 rootPos = new Vector2(_rootObj.transform.position.x, _rootObj.transform.position.z);
+        for (int i = 0; i < _positions.Count; i++)
+        {
+            if(_beforePosition != Vector2.zero)_positions[i] -= _beforePosition; // 前の位置を引く
+            _positions[i] += rootPos; // ルートオブジェクトの位置を加算
+        }
+        _beforePosition = rootPos; // 現在の位置を保存
+    }
     // 補間された点を追加するメソッド
     private void InterpolatePoints(Vector2 from, Vector2 to)
     {
@@ -72,10 +84,11 @@ public class Ammo : MonoBehaviour
             float t = i / (float)steps;
             Vector2 interpolatedPosition = Vector2.Lerp(from, to, t);
             _positions.Add(interpolatedPosition);
+            _isHit.Add(false); // ヒット状態を初期化
         }
     }
     // レイキャストを実行するメソッド
-    private void PerformRaycast(Vector3 rayStart, Vector3 rayEnd)
+    private async UniTask PerformRaycast(Vector3 rayStart, Vector3 rayEnd)
     {
         // 方向と距離を計算
         Vector3 rayDirection = (rayEnd - rayStart).normalized;
@@ -84,27 +97,34 @@ public class Ammo : MonoBehaviour
         if (Physics.Raycast(rayStart, rayDirection, out RaycastHit hit, rayDistance, _raycastLayerMask))
         {
             Debug.Log($"Hit: {hit.collider.name} at {hit.point}");
-            // 当たった位置を使用する場合
-            // position = hit.point;
+            if (hit.collider.gameObject.TryGetComponent<EnemyBase>(out EnemyBase enemy))
+            {
+                await UniTask.Yield(PlayerLoopTiming.Update);
+                enemy.TakeDamage(_damage); // ダメージを与える
+                return;
+            }
         }
+    }
+    void Update()
+    {
+        if (_isShooting) return; // 発射中でない場合は何もしない
+        UpdateLinePosition();
+        UpdateLineRenderer();
     }
     // ラインレンダラーを更新するメソッド
     private void UpdateLineRenderer()
     {
+
         if (_positions.Count > 1)
         {
             _lineRenderer.positionCount = _positions.Count;
             for (int i = 0; i < _positions.Count; i++)
             {
-                Vector3 worldPos = new Vector3(_positions[i].x, _rootObj.transform.position.y, _positions[i].y);
+                if (_isHit[i]) continue;
+                Vector3 worldPos = new Vector3(_positions[i].x, _height, _positions[i].y);
                 _lineRenderer.SetPosition(i, worldPos);
             }
         }
-    }
-
-    void Update()
-    {
-        UpdateLineRenderer(); // 毎フレームラインレンダラーを更新
     }
     public async UniTask Shoot()
     {
@@ -125,7 +145,7 @@ public class Ammo : MonoBehaviour
             }
             for (int i = 0; i < _positions.Count - 1; i++)
             {
-                PerformRaycast(_positions[i], _positions[i + 1]); // レイキャストを実行
+                PerformRaycast(new Vector3(_positions[i].x,_height,_positions[i].y), new Vector3(_positions[i + 1].x,_height,_positions[i + 1].y)).Forget(); // レイキャストを実行
             }
             await UniTask.Delay(10, cancellationToken: cancellationToken); // 100ミリ秒待機
             UpdateLineRenderer(); // ラインレンダラーを更新

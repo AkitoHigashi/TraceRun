@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e8859ca44a5bcc46a4ea5cd8e30491d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lineColor: {r: 0, g: 0, b: 0, a: 1}
-  _rootPosition: {x: 0, y: 0, z: 0}
+  _lineColor: {r: 1, g: 0, b: 0, a: 1}
+  _damage: 10
   _ammoSpeed: 0.1
   _ammoMaxPos: 10
   _ammoSize: 80
