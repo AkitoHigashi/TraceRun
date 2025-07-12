@@ -19,6 +19,7 @@ public class Ammo : MonoBehaviour
     private int _interpolationSteps = 5; // 補間のステップ数
     public float AmmoSize { get { return _ammoSize; } }// Ammoの大きさを取得するプロパティ
     bool _isShooting = false; // 発射中かどうかのフラグ
+    float _lineDamageAdjust; // 線の調整用の変数
     Vector2 _beforePosition;
 
     float _height;
@@ -43,6 +44,10 @@ public class Ammo : MonoBehaviour
     public void RootPosSet(GameObject rootObj) 
     {
         _rootObj = rootObj;
+    }
+    public void LineDamageAdjast(float lineDamageAdjust)
+    {
+        _lineDamageAdjust = lineDamageAdjust; // 線の調整用の変数を更新
     }
 
     public void DrawLine(Vector2 position)
@@ -100,7 +105,14 @@ public class Ammo : MonoBehaviour
             if (hit.collider.gameObject.TryGetComponent<EnemyBase>(out EnemyBase enemy))
             {
                 await UniTask.Yield(PlayerLoopTiming.Update);
-                enemy.TakeDamage(_damage); // ダメージを与える
+                float totalLength = 0f;
+                for (int i = 0; i < _positions.Count - 1; i++)
+                {
+                    // 各頂点間の距離を計算
+                    float segmentLength = Vector2.Distance(_positions[i], _positions[i + 1]);
+                    totalLength += segmentLength;
+                }
+                enemy.TakeDamage((int) (totalLength * _lineDamageAdjust)); // ダメージを与える
                 return;
             }
         }

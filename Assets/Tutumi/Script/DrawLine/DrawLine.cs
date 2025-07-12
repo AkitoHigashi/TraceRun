@@ -10,6 +10,7 @@ public class DrawLine : MonoBehaviour
     [SerializeField] float _aomountReduced = 0.1f; // DrawPanelのインク量を減らす値
     [SerializeField,Header("インクの最大値を設定してください")]float _maxInk = 100f; // インクの最大値
     [SerializeField, Header("FillAmountが設定されているImageをアタッチしてください")] Image _guageImage;//ゲージのImage
+    [SerializeField, Header("線の長さに対するダメージ量")]float _lineDamageAdjust = 0.1f; // 線の調整用の変数
     Ammo _ammo;
     float _ink = 0f; // 現在のインク量
     void Start()
@@ -18,6 +19,7 @@ public class DrawLine : MonoBehaviour
         _drawPanel.ResetAction = Reset; // DrawPanelのResetActionにResetメソッドを登録
         _ammo = Instantiate(_ammoPrefab);
         _ammo.RootPosSet(_playerObj); // Ammoの親オブジェクトを設定
+        _ammo.LineDamageAdjast(_lineDamageAdjust); // Ammoの線の調整用の変数を設定
         _drawPanel.DragAction = DragUpdate; // DrawPanelのDragActionにDragUpdateメソッドを登録
     }
     void DragUpdate(Vector2 position)
@@ -42,5 +44,6 @@ public class DrawLine : MonoBehaviour
         _ammo.Shoot().Forget();
         _ammo = Instantiate(_ammoPrefab);
         _ammo.RootPosSet(_playerObj); // Ammoの親オブジェクトを設定
+        _ammo.LineDamageAdjast(_lineDamageAdjust); // Ammoの線の調整用の変数を設定
     }
 }
