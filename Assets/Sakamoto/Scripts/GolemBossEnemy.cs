@@ -11,7 +11,7 @@ public class GolemBossEnemy : BossEnemyBase
     /// ÉvÉåÉCÉÑÅ[Ç…ãﬂÇ√Ç≠ç≈ëÂãóó£
     /// </summary>
     [SerializeField] private float _approachDistance = 3f;
-    [SerializeField] private Transform _player;
+    private GameObject _player;
 
     private Vector3 _initialPosition;
     private Vector3 _targetPosition;
@@ -21,6 +21,7 @@ public class GolemBossEnemy : BossEnemyBase
     private void Start()
     {
         _initialPosition = transform.position;
+        _player = GameObject.FindWithTag("Player");
         StartCoroutine(Attack());
     }
     public IEnumerator Attack()
@@ -48,7 +49,7 @@ public class GolemBossEnemy : BossEnemyBase
     {
         if (_player == null) return;
 
-        _targetPosition = _player.position;
+        _targetPosition = _player.transform.position;
         Vector3 direction = (_targetPosition - transform.position).normalized;
 
         StartCoroutine(MoveTowardDirection(direction));

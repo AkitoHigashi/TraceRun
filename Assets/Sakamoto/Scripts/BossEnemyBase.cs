@@ -20,8 +20,8 @@ public abstract class BossEnemyBase : MonoBehaviour
         if (other.gameObject.tag == "Bullet")
         {
             //‰¼
-            //BulletDamage bullet = other.GetComponent<BulletDamage>();
-            //TakeDamage(bullet.damage);
+            BulletDamage bullet = other.GetComponent<BulletDamage>();
+            TakeDamage(bullet.damage);
             Destroy(other.gameObject);
         }
         if (other.gameObject.tag == "DeathFloor")
@@ -29,7 +29,17 @@ public abstract class BossEnemyBase : MonoBehaviour
             this.gameObject.SetActive(false);
         }
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerStateTest player = collision.gameObject.GetComponent<PlayerStateTest>();
+            if (player != null)
+            {
+                player.TakeDamage(_damage);
+            }
+        }
+    }
     public void TakeDamage(int damage)
     {
         _health -= damage;
