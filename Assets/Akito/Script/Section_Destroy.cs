@@ -4,7 +4,6 @@ using UnityEngine;
 /// </summary>
 public class Section_Destroy : MonoBehaviour
 {
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Lord"))//Lordƒ^ƒO•t‚¯‚Ä

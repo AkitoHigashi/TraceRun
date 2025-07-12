@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 1352530569664161006}
   - component: {fileID: 5886632930853155572}
   - component: {fileID: 3452493702381948789}
+  - component: {fileID: 4811373508891342895}
   m_Layer: 0
   m_Name: Ground()
   m_TagString: Lord
@@ -212,6 +213,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 50
+--- !u!64 &4811373508891342895
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961228489511171707}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3206721267917250997, guid: 261ff3dd765c6b44c99b090fa252965d, type: 3}
 --- !u!1 &1783269403425210877
 GameObject:
   m_ObjectHideFlags: 0

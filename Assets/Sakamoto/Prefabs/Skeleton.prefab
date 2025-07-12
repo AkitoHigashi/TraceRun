@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4834262667200554134}
   - component: {fileID: 4365046637489094991}
   - component: {fileID: 8896481678400782140}
-  - component: {fileID: 1874754639745708280}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -30,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4773423775246872019}
   - {fileID: 1249395431216528705}
@@ -74,7 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6922ef1e64a55d3449c50b5627279846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySpeed: -10
 --- !u!136 &8896481678400782140
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -98,54 +96,6 @@ CapsuleCollider:
   m_Height: 1.53
   m_Direction: 1
   m_Center: {x: 0, y: 0.71, z: 0}
---- !u!114 &1874754639745708280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16101978675687371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 1
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 4568610793178828659}
-  - {fileID: 643633637504694299}
-  - {fileID: 1039315761604866203}
-  - {fileID: 5165236052010209876}
-  - {fileID: 7341443088286559181}
-  - {fileID: 881980120366276918}
-  - {fileID: 2844239562871700440}
-  - {fileID: 6936641337400462304}
-  - {fileID: 475727086367068411}
-  - {fileID: 6311000604791294109}
-  - {fileID: 4997155149119641271}
-  - {fileID: 2410730975665796731}
-  - {fileID: 814298240922692627}
-  - {fileID: 1504441382713062220}
-  - {fileID: 8728508707757912087}
-  - {fileID: 3537827013263584272}
-  - {fileID: 677738814623783180}
-  - {fileID: 1934509427930256701}
-  - {fileID: 6839847422869399200}
-  - {fileID: 7009955564554293917}
-  - {fileID: 4403248482770721518}
-  - {fileID: 1496614321951893079}
-  - {fileID: 7423481632499287391}
-  - {fileID: 1272804606298635612}
-  - {fileID: 172498953803405359}
-  - {fileID: 4602074330146928780}
-  - {fileID: 1298547401043823279}
-  - {fileID: 7233249754790291525}
-  - {fileID: 6171362295301110142}
 --- !u!1 &724609781192660067
 GameObject:
   m_ObjectHideFlags: 0

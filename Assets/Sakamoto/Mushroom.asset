@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae4f80e53bca5a4c9a9d12a73145108, type: 3}
   m_Name: Mushroom
   m_EditorClassIdentifier: 
-  TypeName: 
-  Prefab: {fileID: 0}
-  MoveSpeed: 0
-  Health: 0
-  AttackDamage: 0
+  TypeName: Mush
+  Prefab: {fileID: 2896432592774000702, guid: 2cd30626d89e49a4a96819ad9b384487, type: 3}
+  MoveSpeed: 10
+  Health: 1
+  AttackDamage: 1
