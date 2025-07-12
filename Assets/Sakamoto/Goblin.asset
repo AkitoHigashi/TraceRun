@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeName: Goblin
   Prefab: {fileID: 7004708371491096746, guid: 600b62f357758a84f8bdb210beb330ec, type: 3}
-  MoveSpeed: 5
+  MoveSpeed: 20
   Health: 20
   AttackDamage: 10
+  HealInk: 10

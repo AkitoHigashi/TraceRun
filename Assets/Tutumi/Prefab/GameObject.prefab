@@ -47,5 +47,5 @@ MonoBehaviour:
   _lineColor: {r: 1, g: 0, b: 0, a: 1}
   _damage: 10
   _ammoSpeed: 0.1
-  _ammoMaxPos: 10
+  _ammoMaxPos: 20
   _ammoSize: 80

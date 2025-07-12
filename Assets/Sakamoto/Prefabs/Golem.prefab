@@ -167,7 +167,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6648164909953771434}
   - component: {fileID: 1101402843567952833}
-  - component: {fileID: 4127663080009824391}
   - component: {fileID: 8987775955718643153}
   - component: {fileID: 2220861665151624313}
   - component: {fileID: 1907637940252817210}
@@ -188,9 +187,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433026873426657549}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.99987656, z: -0, w: 0.015716134}
+  m_LocalRotation: {x: 0, y: 0.9998765, z: 0, w: 0.01571601}
   m_LocalPosition: {x: 0, y: -0.00000047683716, z: 9.84}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8890013369647542305}
@@ -207,7 +206,7 @@ Animator:
   m_GameObject: {fileID: 433026873426657549}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cfbfb95b5f2b90949be0b5faab2775fb, type: 3}
-  m_Controller: {fileID: 9100000, guid: bab54f4750bc35f4b89d66fc8d0a36c9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1cd8f7ddcf683124fa799b367b5f3140, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -219,79 +218,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4127663080009824391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433026873426657549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 3.41
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 8890013369647542305}
-  - {fileID: 8970574262773192661}
-  - {fileID: 6233031950743010739}
-  - {fileID: 3118697680122574906}
-  - {fileID: 3348662448513691804}
-  - {fileID: 8795960004776662283}
-  - {fileID: 313374974419886253}
-  - {fileID: 28279714549247721}
-  - {fileID: 6099068716799798068}
-  - {fileID: 3541976418467608786}
-  - {fileID: 8115523663651308520}
-  - {fileID: 2306026843052923161}
-  - {fileID: 4280022263243096182}
-  - {fileID: 6703556768947988347}
-  - {fileID: 4277367063478738433}
-  - {fileID: 7007354159175593547}
-  - {fileID: 9070921317708348705}
-  - {fileID: 6344705275231840960}
-  - {fileID: 5870498896873552097}
-  - {fileID: 6293722470055747142}
-  - {fileID: 7662885944900278793}
-  - {fileID: 5691734488251813016}
-  - {fileID: 5596383487696711168}
-  - {fileID: 3651974032371889523}
-  - {fileID: 9172039634611978820}
-  - {fileID: 7531023189547721990}
-  - {fileID: 6667032460360646832}
-  - {fileID: 8169986816698638117}
-  - {fileID: 4339377223523760973}
-  - {fileID: 9083080727204421331}
-  - {fileID: 5569928247155905158}
-  - {fileID: 5932884488058249132}
-  - {fileID: 8627430807468275135}
-  - {fileID: 8083393071662808348}
-  - {fileID: 3994916744556001331}
-  - {fileID: 8151433064611336095}
-  - {fileID: 7024288144986933213}
-  - {fileID: 8537005378109553108}
-  - {fileID: 6418382118460563816}
-  - {fileID: 990759674286278290}
-  - {fileID: 8192345916236082822}
-  - {fileID: 7462213508108624463}
-  - {fileID: 4578405665170912213}
-  - {fileID: 1287208717940942647}
-  - {fileID: 3288606865672552025}
-  - {fileID: 4300305383829406124}
-  - {fileID: 3182712260011286712}
-  - {fileID: 2211026813138584417}
-  - {fileID: 8039638864426903595}
-  - {fileID: 7776153387519301992}
-  - {fileID: 6532804631817060247}
-  - {fileID: 811831684337137061}
-  - {fileID: 6593430588562484135}
-  - {fileID: 557378970215255419}
 --- !u!114 &8987775955718643153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed0ec824d41feaa41b0165a55f71b2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stone: {fileID: 1576488453971893466, guid: a778b631c6253a04899cb31bad047c81, type: 3}
+  _stone: {fileID: 1576488453971893466, guid: cffbbb4cb166d1f4187459098833247c, type: 3}
   _stoneheight: 10
 --- !u!1 &753843824221276974
 GameObject:

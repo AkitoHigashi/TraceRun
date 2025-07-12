@@ -1,16 +1,15 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class Ammo : MonoBehaviour
 {
-    [SerializeField,Header("線の色を設定してください")] private Color _lineColor = Color.red; // 線の色を設定
+    [SerializeField, Header("線の色を設定してください")] private Color _lineColor = Color.red; // 線の色を設定
     [SerializeField, Header("敵に当たった時のダメージを設定してください")] private int _damage = 10;
     private GameObject _rootObj;
     [SerializeField, Header("球の移動速度を設定してください")] private float _ammoSpeed = 0.1f; // 弾の移動速度
-    [SerializeField,Header("球が消える位置を設定してください")] private float _ammoMaxPos = 100f;//球の最大位置
+    [SerializeField, Header("球が消える位置を設定してください")] private float _ammoMaxPos = 100f;//球の最大位置
     [SerializeField, Header("球の大きさを設定してください割り算なので数値を大きくするほど球が小さくなります")] private float _ammoSize = 50f; // レイキャスト対象のレイヤー
     private List<Vector2> _positions = new List<Vector2>();
     private List<bool> _isHit = new List<bool>(); // 各点がヒットしたかどうかのリスト
@@ -41,7 +40,7 @@ public class Ammo : MonoBehaviour
         _lineRenderer.useWorldSpace = true;
         _lineRenderer.positionCount = 0; // 初期状態では点を持たない
     }
-    public void RootPosSet(GameObject rootObj) 
+    public void RootPosSet(GameObject rootObj)
     {
         _rootObj = rootObj;
     }
@@ -73,7 +72,7 @@ public class Ammo : MonoBehaviour
         Vector2 rootPos = new Vector2(_rootObj.transform.position.x, _rootObj.transform.position.z);
         for (int i = 0; i < _positions.Count; i++)
         {
-            if(_beforePosition != Vector2.zero)_positions[i] -= _beforePosition; // 前の位置を引く
+            if (_beforePosition != Vector2.zero) _positions[i] -= _beforePosition; // 前の位置を引く
             _positions[i] += rootPos; // ルートオブジェクトの位置を加算
         }
         _beforePosition = rootPos; // 現在の位置を保存
@@ -112,7 +111,7 @@ public class Ammo : MonoBehaviour
                     float segmentLength = Vector2.Distance(_positions[i], _positions[i + 1]);
                     totalLength += segmentLength;
                 }
-                enemy.TakeDamage((int) (totalLength * _lineDamageAdjust)); // ダメージを与える
+                enemy.TakeDamage((int)(totalLength * _lineDamageAdjust)); // ダメージを与える
                 return;
             }
         }
@@ -157,7 +156,7 @@ public class Ammo : MonoBehaviour
             }
             for (int i = 0; i < _positions.Count - 1; i++)
             {
-                PerformRaycast(new Vector3(_positions[i].x,_height,_positions[i].y), new Vector3(_positions[i + 1].x,_height,_positions[i + 1].y)).Forget(); // レイキャストを実行
+                PerformRaycast(new Vector3(_positions[i].x, _height, _positions[i].y), new Vector3(_positions[i + 1].x, _height, _positions[i + 1].y)).Forget(); // レイキャストを実行
             }
             await UniTask.Delay(10, cancellationToken: cancellationToken); // 100ミリ秒待機
             UpdateLineRenderer(); // ラインレンダラーを更新

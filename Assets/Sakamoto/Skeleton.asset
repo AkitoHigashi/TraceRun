@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeName: Skeleton
   Prefab: {fileID: 16101978675687371, guid: f4c172012c4958c4093c9c00b85fcb27, type: 3}
-  MoveSpeed: -10
+  MoveSpeed: -30
   Health: 10
   AttackDamage: 10
+  HealInk: 10
