@@ -11,11 +11,11 @@ public class AttackColliderController : MonoBehaviour
     }
     
     //アニメーションイベントで呼ぶ
-    private void ColiderOn()
+    public void ColiderOn()
     {
         _boxCollider.enabled = true;
     }
-    private void ColliderOff()
+    public void ColliderOff()
     {
         _boxCollider.enabled = false;
     }

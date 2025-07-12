@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 2220861665151624313}
   - component: {fileID: 1907637940252817210}
   - component: {fileID: -8779504987519339533}
+  - component: {fileID: 6378254960368848088}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -308,7 +309,6 @@ MonoBehaviour:
   _moveSpeed: 5
   _approachDistance: 10
   _player: {fileID: 0}
-  _boxCollider: {fileID: 0}
 --- !u!136 &2220861665151624313
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -365,6 +365,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c82b76ac19f7a14ea5004d574bfacd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6378254960368848088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433026873426657549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0ec824d41feaa41b0165a55f71b2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stone: {fileID: 1576488453971893466, guid: a778b631c6253a04899cb31bad047c81, type: 3}
+  _stoneheight: 10
 --- !u!1 &753843824221276974
 GameObject:
   m_ObjectHideFlags: 0
