@@ -24,11 +24,11 @@ public class GameDirctor : MonoBehaviour
     [SerializeField]
     Text _enemyCountText;
 
-    [Header("Result"), Tooltip("クリア時に表示するオブジェクトを設定")]
+    [Header("Result"), Tooltip("クリア時に表示する\"オブジェクト\"を設定")]
     [SerializeField]
     GameObject _result;
 
-    [Header("PowerUpGroup"), Tooltip("パワーアップ時に表示するイメージのグループを設定")]
+    [Header("PowerUpGroup"), Tooltip("パワーアップ時に表示するイメージの\"グループ\"を設定")]
     [SerializeField]
     GameObject _powerUpGroup;
 
@@ -47,7 +47,7 @@ public class GameDirctor : MonoBehaviour
     /// <summary>
     /// 基本はボタンは３つ設定するけど今後増やす可能性もある
     /// </summary>
-    [Header("Button"), Tooltip("パワーアップ時に表示するボタンを設定")]
+    [Header("Button"), Tooltip("パワーアップ時に表示する\"ボタン\"を設定")]
     [SerializeField]
     List<GameObject> _button;
 
