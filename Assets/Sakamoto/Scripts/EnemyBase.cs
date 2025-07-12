@@ -34,6 +34,17 @@ public abstract class EnemyBase : MonoBehaviour
             this.gameObject.SetActive(false);
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerStateTest player = collision.gameObject.GetComponent<PlayerStateTest>();
+            if (player != null)
+            {
+                player.TakeDamage(_damage);
+            }
+        }
+    }
 
     public void TakeDamage(int damage)
     {
