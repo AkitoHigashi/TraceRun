@@ -6,11 +6,12 @@ public abstract class BossEnemyBase : MonoBehaviour, IEnemy
     protected int _health;
     protected int _damage;
     protected float _attackCoolTime;
-    GameDirctor _gamctor;
+    SceneChange _SC;
 
     private void Awake()
     {
-        _gamctor = FindAnyObjectByType<GameDirctor>();
+        _SC = FindAnyObjectByType<SceneChange>();
+        Debug.Log(_SC.gameObject.name);
     }
 
     public virtual void Setup(BossEnemyData data)
@@ -51,12 +52,13 @@ public abstract class BossEnemyBase : MonoBehaviour, IEnemy
         _health -= damage;
         if (_health <= 0)
         {
-            Die();
+
+            _SC.ChangeScene("result");
+            //Die();
         }
     }
     protected virtual void Die()
     {
-        _gamctor.OutBossBattle();
         Destroy(gameObject);
     }
 
