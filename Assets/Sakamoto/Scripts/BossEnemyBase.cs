@@ -6,6 +6,12 @@ public abstract class BossEnemyBase : MonoBehaviour, IEnemy
     protected int _health;
     protected int _damage;
     protected float _attackCoolTime;
+    GameDirctor _gamctor;
+
+    private void Awake()
+    {
+        _gamctor = FindAnyObjectByType<GameDirctor>();
+    }
 
     public virtual void Setup(BossEnemyData data)
     {
@@ -50,6 +56,7 @@ public abstract class BossEnemyBase : MonoBehaviour, IEnemy
     }
     protected virtual void Die()
     {
+        _gamctor.OutBossBattle();
         Destroy(gameObject);
     }
 

@@ -66,7 +66,7 @@ public class GameDirctor : MonoBehaviour
     [SerializeField]
     int _nowScore;
     [SerializeField]
-    bool _isInBossBattle = false;
+    public bool _isInBossBattle = false;
     [SerializeField]
     bool _clear = false;
     [SerializeField]
