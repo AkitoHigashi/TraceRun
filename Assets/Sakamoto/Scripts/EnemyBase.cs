@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IEnemy
 {
     protected float _speed;
     protected int _health;

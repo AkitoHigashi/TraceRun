@@ -101,7 +101,7 @@ public class Ammo : MonoBehaviour
         if (Physics.Raycast(rayStart, rayDirection, out RaycastHit hit, rayDistance, _raycastLayerMask))
         {
             Debug.Log($"Hit: {hit.collider.name} at {hit.point}");
-            if (hit.collider.gameObject.TryGetComponent<EnemyBase>(out EnemyBase enemy))
+            if (hit.collider.gameObject.TryGetComponent<IEnemy>(out IEnemy enemy))
             {
                 await UniTask.Yield(PlayerLoopTiming.Update);
                 float totalLength = 0f;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BossEnemyBase : MonoBehaviour
+public abstract class BossEnemyBase : MonoBehaviour, IEnemy
 {
     protected float _speed;
     protected int _health;
@@ -19,7 +19,7 @@ public abstract class BossEnemyBase : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            //‰¼
+            //ï¿½ï¿½
             BulletDamage bullet = other.GetComponent<BulletDamage>();
             TakeDamage(bullet.damage);
             Destroy(other.gameObject);
@@ -61,4 +61,9 @@ public abstract class BossEnemyBase : MonoBehaviour
         Attack,
         Attack2,
     }
+}
+
+public interface IEnemy
+{
+    void TakeDamage(int damage);
 }
