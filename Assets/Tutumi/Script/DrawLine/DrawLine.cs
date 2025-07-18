@@ -28,8 +28,7 @@ public class DrawLine : MonoBehaviour
         _ink -= _aomountReduced; // インクを減らす
         Debug.Log($"インクの量: {_ink}");
         _ammo.DrawLine(position);
-        if (!_guageImage) return;//ゲージのImageが設定されていない場合は何もしない
-        _guageImage.fillAmount = _ink / _maxInk; // ゲージのFillAmountを更新
+        InkGuageUpdate();
     }
     /// <summary>
     /// インクの量を更新するメソッド
@@ -38,6 +37,15 @@ public class DrawLine : MonoBehaviour
     public void InkHealthUpdate(float ink)
     {
         _ink += ink; // インクの量を更新
+        InkGuageUpdate();
+    }
+    /// <summary>
+    /// インクゲージの変更があった時呼び出してイメージに適応する
+    /// </summary>
+    private void InkGuageUpdate()
+    {
+        if (!_guageImage) return;//ゲージのImageが設定されていない場合は何もしない
+        _guageImage.fillAmount = _ink / _maxInk; // ゲージのFillAmountを更新
     }
     void Reset()
     {
@@ -45,5 +53,9 @@ public class DrawLine : MonoBehaviour
         _ammo = Instantiate(_ammoPrefab);
         _ammo.RootPosSet(_playerObj); // Ammoの親オブジェクトを設定
         _ammo.LineDamageAdjast(_lineDamageAdjust); // Ammoの線の調整用の変数を設定
+    }
+    public void UpGrade(float maxInkUp)
+    {
+        _maxInk += maxInkUp;
     }
 }

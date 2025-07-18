@@ -14,10 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _list:
   - _name: A
-    _sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-    _powerUpValue: 10
-    _defaultValue: 10
+    _Text: "\u5F3E\u306E\u98DB\u8DDD\u96E2UP"
+    _ammoSpeedUP: 0
+    _ammoMaxPosUP: 5
+    _moveSpeedUP: 0
+    _maxInkUP: 0
+    _hpRecovery: 0
   - _name: B
-    _sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-    _powerUpValue: 20
-    _defaultValue: 20
+    _Text: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u79FB\u52D5\u901F\u5EA6UP"
+    _ammoSpeedUP: 0
+    _ammoMaxPosUP: 0
+    _moveSpeedUP: 4
+    _maxInkUP: 0
+    _hpRecovery: 0
+  - _name: "\uFF23"
+    _Text: "\u30A4\u30F3\u30AF\u306E\u6700\u5927\u91CFUP"
+    _ammoSpeedUP: 0
+    _ammoMaxPosUP: 0
+    _moveSpeedUP: 0
+    _maxInkUP: 20
+    _hpRecovery: 0
+  - _name: D
+    _Text: "HP\u56DE\u5FA9"
+    _ammoSpeedUP: 0
+    _ammoMaxPosUP: 0
+    _moveSpeedUP: 0
+    _maxInkUP: 0
+    _hpRecovery: 100
+  - _name: F
+    _Text: "\u5F3E\u306E\u767A\u5C04\u901F\u5EA6UP"
+    _ammoSpeedUP: 0.1
+    _ammoMaxPosUP: 0
+    _moveSpeedUP: 0
+    _maxInkUP: 0
+    _hpRecovery: 0

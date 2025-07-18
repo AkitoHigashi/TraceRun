@@ -28,7 +28,7 @@ public class PlayerStatus : MonoBehaviour
         {
             for (int i = 0; i < _powerUpData._list.Count; i++)//_parameter‚Éstring‚ðŽw’è‚·‚é‚Æ‰Šú’l‚ðŠl“¾‚Å‚«‚é
             {
-                _parameter[_powerUpData._list[i]._name] = _powerUpData._list[i]._defaultValue;
+                //_parameter[_powerUpData._list[i]._name] = _powerUpData._list[i]._defaultValue;
             }
         }
     }

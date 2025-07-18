@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeName: Golem
   Prefab: {fileID: 433026873426657549, guid: cdd1f53da44f349469e88d47aac5fe60, type: 3}
-  MoveSpeed: 50
-  Health: 999
-  AttackDamage: 999
-  AttackCoolTime: 0.2
+  MoveSpeed: 100
+  Health: 2000
+  AttackDamage: 500
+  AttackCoolTime: 1

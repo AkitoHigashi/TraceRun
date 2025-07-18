@@ -9,4 +9,5 @@ public class EnemyData : ScriptableObject
     public int Health;
     public int AttackDamage;
     public int HealInk; // 敵が倒されたときに回復するインク量   
+    public int UpScore;//敵を倒した時の上がるスコア
 }

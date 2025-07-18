@@ -6,6 +6,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
     protected int _health;
     protected int _damage;
     protected int _healInk;
+    protected int _upScore;
 
     public virtual void Setup(EnemyData data)
     {
@@ -13,6 +14,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
         _health = data.Health;
         _damage = data.AttackDamage;
         _healInk = data.HealInk;
+        _upScore = data.UpScore;
     }
     public virtual void MoveToBase()
     {
@@ -58,6 +60,8 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
     protected virtual void Die()
     {
         GameObject.FindAnyObjectByType<DrawLine>()?.InkHealthUpdate(_healInk); // インクを回復
+        GameObject.FindAnyObjectByType<GameDirctor>()?.AddScore(_upScore); //スコア上昇
+        GameObject.FindAnyObjectByType<GameDirctor>()?.EnemyDead(); //スコア上昇
         this.gameObject.SetActive(false);
     }
 

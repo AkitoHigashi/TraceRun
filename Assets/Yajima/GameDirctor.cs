@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class GameDirctor : MonoBehaviour
 {
+    [Header("SpawnManagerのオブジェクト")]
+    [SerializeField]
+    GameObject _SM;
+
     [Header("PowerUpData(ScriptableObject)")]
     [SerializeField]
     PowerUpData _powerUpData;
@@ -49,7 +53,7 @@ public class GameDirctor : MonoBehaviour
     /// </summary>
     [Header("Button"), Tooltip("パワーアップ時に表示する\"ボタン\"を設定")]
     [SerializeField]
-    List<GameObject> _button;
+    List<GameObject> _buttons;
 
     /// <summary>
     /// ボタンのイメージのリストに対応するインデックスのリスト
@@ -58,13 +62,12 @@ public class GameDirctor : MonoBehaviour
 
     float _elapsedTime;
     float _TimeForDistance;
-    float _distance;
-    int _enemyCount;
+    public static float _distance;//走行距離
+    public static int _enemyCount;//エネミー殺したスコア
     int _previousScore;
 
     [Header("UICheckParameters")]
-    [SerializeField]
-    int _nowScore;
+    public static int _nowScore;
     [SerializeField]
     public bool _isInBossBattle = false;
     [SerializeField]
@@ -103,7 +106,7 @@ public class GameDirctor : MonoBehaviour
             _powerUpScore.Sort();
         }
 
-        if (_button == null || _button.Count == 0)
+        if (_buttons == null || _buttons.Count == 0)
         {
             Debug.LogWarning("ボタンのリストが空です");
         }
@@ -150,7 +153,7 @@ public class GameDirctor : MonoBehaviour
                     //距離テキスト
                     if (_distanceText != null)
                     {
-                        _distanceText.text = _distance.ToString("0000.0") + "m";
+                        _distanceText.text = "走った距離   " + _distance.ToString("0000.0") + "m";
                     }
                     else
                     {
@@ -171,7 +174,7 @@ public class GameDirctor : MonoBehaviour
                 //スコアテキスト
                 if (_scoreText != null)
                 {
-                    _scoreText.text = _nowScore.ToString("00000");
+                    _scoreText.text = "スコア\r\n" + _nowScore.ToString("00000");
                 }
                 else
                 {
@@ -181,7 +184,7 @@ public class GameDirctor : MonoBehaviour
                 //敵カウントテキスト
                 if (_enemyCountText != null)
                 {
-                    _enemyCountText.text = _enemyCount.ToString("000");
+                    _enemyCountText.text = "倒した敵の数      " + _enemyCount + "体";
                 }
                 else
                 {
@@ -203,6 +206,7 @@ public class GameDirctor : MonoBehaviour
 
         if (_distance >= _meters[0])//一定距離に達したら
         {
+            _SM.SetActive(false);
             _isInBossBattle = true;
             if (_meters.Count > 1)//ボス戦突入の距離が更新される
             {
@@ -240,7 +244,7 @@ public class GameDirctor : MonoBehaviour
     /// </summary>
     public void OutBossBattle()
     {
-        PowerUpSelect();
+        //PowerUpSelect();
         _isInBossBattle = false;
     }
 
@@ -250,11 +254,11 @@ public class GameDirctor : MonoBehaviour
     /// </summary>
     public void GameResume()
     {
-        //_powerUpCondition = false;
-        for (int i = 0; i < _button.Count; i++)
-        {
-            _powerUpGroup.SetActive(false);
-        }
+        _powerUpCondition = false;
+        //for (int i = 0; i < _buttons.Count; i++)
+        //{
+        _powerUpGroup.SetActive(false);
+        //}
         Time.timeScale = 1;
     }
 
@@ -275,7 +279,7 @@ public class GameDirctor : MonoBehaviour
         _powerUpGroup.SetActive(true);
         Time.timeScale = 0;
 
-        //_powerUpCondition = true;
+        _powerUpCondition = true;
         if (_powerUpScore.Count > 1)//スコアの達成条件が更新される
         {
             _powerUpScore.RemoveAt(0);
@@ -289,15 +293,15 @@ public class GameDirctor : MonoBehaviour
         }
 
         //ランダムにリストの要素を選ぶ（パワーアップ要素を選ぶ）
-        for (int i = 0; i < _button.Count; i++)
+        for (int i = 0; i < _buttons.Count; i++)
         {
             //ボタンに割り振るパワーアップ要素がボタンの数よりも多いとき（パワーアップ要素を選べるとき）
-            if ( _powerUpData._list.Count - i > 0)
+            if (_powerUpData._list.Count - i > 0)
             {
                 //乱数生成
                 int rand = Random.Range(0, _powerUpIndex.Count);
                 //ボタンに対して番号を割り振る
-                _button[i].GetComponent<PowerUp>().SetImage(_powerUpIndex[rand]);
+                _buttons[i].GetComponent<PowerUp>().SetText(_powerUpIndex[rand]);
                 //選ばれた要素を削除
                 _powerUpIndex.RemoveAt(rand);
             }

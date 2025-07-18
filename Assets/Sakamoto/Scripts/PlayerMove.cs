@@ -77,4 +77,8 @@ public class PlayerMove : MonoBehaviour
             transform.position = clampedPos;
         }
     }
+    public void MoveUp(float upspeed)
+    {
+        _moveSpeed += upspeed;
+    }
 }

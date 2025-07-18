@@ -164,4 +164,10 @@ public class Ammo : MonoBehaviour
         Debug.Log("Shoot End");
         Destroy(gameObject); // Ammoオブジェクトを削除
     }
+
+    public void AmmoUpGrade(float ammoSP, float ammoMax)
+    {
+        _ammoSpeed += ammoSP;
+        _ammoMaxPos += ammoMax;
+    }
 }
